@@ -8,6 +8,18 @@ class PostIndex extends Component {
   // componet is about to be rendered on the DOM.
   componentWillMount() {
     this.props.fetchPosts();
+    
+  }
+
+  renderPosts(){
+    return this.props.posts.map((post) => {
+      return (
+        <li className="list-group-item" key={post.id}>
+          <span className="pull-xs-right">{post.categories}</span>
+          <strong>{post.title}</strong>
+        </li>
+      );
+    });
   }
 
   render() {
@@ -18,10 +30,17 @@ class PostIndex extends Component {
             Add A Post
           </Link>
         </div>
-        List of Blog Post
+        <h3>Posts</h3>
+        <ul className="list-group">
+        {this.renderPosts()}
+        </ul>
       </div>
     );
   }
+}
+
+function mapStatetoProps(state) {
+  return { posts: state.posts.all };
 }
 
 
@@ -29,4 +48,4 @@ class PostIndex extends Component {
 // like to map over yet
 // this gives us access to this.props.fetchPosts
 // export default connect(null, { fetchPosts: fetchPosts })(PostIndex);
-export default connect(null, { fetchPosts })(PostIndex);
+export default connect(mapStatetoProps, { fetchPosts })(PostIndex);
