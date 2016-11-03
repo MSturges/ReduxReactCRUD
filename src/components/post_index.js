@@ -8,15 +8,16 @@ class PostIndex extends Component {
   // componet is about to be rendered on the DOM.
   componentWillMount() {
     this.props.fetchPosts();
-    
   }
 
   renderPosts(){
     return this.props.posts.map((post) => {
       return (
         <li className="list-group-item" key={post.id}>
+          <Link to={"post/" + post.id}>
           <span className="pull-xs-right">{post.categories}</span>
           <strong>{post.title}</strong>
+          </Link>
         </li>
       );
     });
@@ -25,15 +26,15 @@ class PostIndex extends Component {
   render() {
     return (
       <div>
-        <div className="text-xs-right">
-          <Link to="/post/new" className="btn btn-primary">
-            Add A Post
-          </Link>
-        </div>
-        <h3>Posts</h3>
-        <ul className="list-group">
-        {this.renderPosts()}
-        </ul>
+      <div className="text-xs-right">
+      <Link to="/post/new" className="btn btn-primary">
+      Add A Post
+      </Link>
+      </div>
+      <h3>Posts</h3>
+      <ul className="list-group">
+      {this.renderPosts()}
+      </ul>
       </div>
     );
   }
